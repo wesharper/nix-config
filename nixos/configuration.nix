@@ -119,6 +119,7 @@
     starship
     steam
     stow
+    unzip
     vscode
   ];
 
