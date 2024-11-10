@@ -24,14 +24,11 @@
     "sd_mod"
   ];
 
-  boot.initrd.kernelModules = [ "amdgpu" ];
-
-  boot.kernelModules = [
-    "kvm-amd"
-    "r8125"
-  ];
+  boot.initrd.kernelModules = [ "r8125" ];
 
   hardware.enableAllFirmware = true;
+
+  boot.kernelModules = [ "kvm-amd" ];
 
   boot.extraModulePackages = [ ];
 
@@ -62,4 +59,4 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
+}
