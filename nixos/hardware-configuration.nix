@@ -35,7 +35,7 @@
 
   hardware.enableAllFirmware = true;
 
-  boot.extraModulePackages = [ config.boot.kernelPackages.r8125 ];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e1f7e635-573f-49bb-8489-737146b9edb6";
@@ -64,4 +64,4 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-}
+
