@@ -24,11 +24,14 @@
     "sd_mod"
   ];
 
-  boot.initrd.kernelModules = [ "r8125" ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   hardware.enableAllFirmware = true;
 
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "r8125"
+  ];
 
   boot.extraModulePackages = [ ];
 
