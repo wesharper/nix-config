@@ -111,6 +111,7 @@
   environment.systemPackages = with pkgs; [
     _1password-gui
     brave
+    discord
     fzf
     git
     kitty
