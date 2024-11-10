@@ -123,6 +123,10 @@
     vscode
   ];
 
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "RobotoMono" ]; })
+  ];
+
   programs.zsh.enable = true;
 
   users.defaultUserShell = pkgs.zsh;
