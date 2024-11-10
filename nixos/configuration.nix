@@ -110,6 +110,7 @@
 
   environment.systemPackages = with pkgs; [
     _1password-gui
+    brave
     kitty
     git
     spotify
