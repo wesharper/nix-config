@@ -114,6 +114,7 @@
     kitty
     git
     spotify
+    starship
     steam
     stow
     vscode
