@@ -1,5 +1,6 @@
 {
   inputs,
+  outputs,
   lib,
   config,
   pkgs,
@@ -15,6 +16,8 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
+
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   nixpkgs = {
@@ -130,6 +133,13 @@
     vscode
     git
   ];
+
+  home-manager = {
+    extraSpecialArgs = { inherit inputs outputs; };
+    users = {
+      chuffed = import ../home.nix;
+    };
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "24.05";
