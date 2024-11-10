@@ -111,8 +111,9 @@
   environment.systemPackages = with pkgs; [
     _1password-gui
     brave
-    kitty
+    fzf
     git
+    kitty
     spotify
     starship
     steam
