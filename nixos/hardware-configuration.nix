@@ -23,12 +23,18 @@
     "usbhid"
     "sd_mod"
   ];
+
   boot.initrd.kernelModules = [ "amdgpu" ];
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.kernelModules = [
     "kvm-amd"
     "r8125"
   ];
-  boot.extraModulePackages = [ ];
+
+  hardware.enableAllFirmware = true;
+  boot.extraModulePackages = with config.boot.kernelPackages; [ "realtek-r8125" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e1f7e635-573f-49bb-8489-737146b9edb6";
