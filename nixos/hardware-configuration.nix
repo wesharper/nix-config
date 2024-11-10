@@ -34,7 +34,8 @@
   ];
 
   hardware.enableAllFirmware = true;
-  boot.extraModulePackages = with config.boot.kernelPackages; [ "realtek-r8125" ];
+
+  boot.extraModulePackages = [ config.boot.kernelPackages.r8125 ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e1f7e635-573f-49bb-8489-737146b9edb6";
