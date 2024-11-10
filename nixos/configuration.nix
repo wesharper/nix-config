@@ -115,6 +115,7 @@
     fzf
     git
     kitty
+    nixfmt-rfc-style
     spotify
     starship
     steam
