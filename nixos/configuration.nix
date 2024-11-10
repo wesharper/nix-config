@@ -109,11 +109,11 @@
   };
 
   environment.systemPackages = with pkgs; [
-    zed-editor
-    vscode
+    _1password-gui
     git
     spotify
     steam
+    vscode
   ];
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
