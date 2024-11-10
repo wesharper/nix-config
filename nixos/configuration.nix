@@ -115,6 +115,7 @@
     git
     spotify
     steam
+    stow
     vscode
   ];
 
