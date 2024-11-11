@@ -74,8 +74,27 @@
         vulkan-tools
         libdecor
         gtk3
+        gtk4
       ];
     };
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+
+      settings = {
+        General = {
+          Experimental = true; # Show battery charge of devices
+          Enable = "Source,Sink,Media,Socket"; # Enable A2DP Sink for modern headsets
+        };
+      };
+    };
+
+    # pulseaudio = {
+    #   enable = true;
+    #   package = pkgs.pulseaudioFull; # Support additional BT audio codecs
+    #   extraConfig = "load-module module-switch-on-connect"; # Auto-switch to connected BT device
+    # };
   };
 
   boot.kernelModules = [
@@ -95,7 +114,6 @@
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -125,12 +143,6 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable game mode
-  # programs.gamemode.enable = true;
-
-  # Better power management
-  # services.thermald.enable = true;
-
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
@@ -145,25 +157,21 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    jack.enable = true;
+    wireplumber.enable = true;
   };
 
   users.users.chuffed = {
     isNormalUser = true;
     description = "Weston Harper";
     extraGroups = [
+      "bluetooth"
       "networkmanager"
       "wheel"
     ];
@@ -190,6 +198,8 @@
     unzip
     vscode
     vulkan-tools
+    winetricks
+    wineWowPackages.stable
     xorg.libX11
     xorg.libXcursor
     xorg.libXrandr
