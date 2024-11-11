@@ -176,11 +176,10 @@
     git
     kitty
     lm_sensors
+    mangohud
     nixfmt-rfc-style
-    ryzenadj
     spotify
     starship
-    steam
     stow
     unzip
     vscode
@@ -192,6 +191,9 @@
   ];
 
   programs.zsh.enable = true;
+  programs.steam = {
+    enable = true;
+  };
 
   users.defaultUserShell = pkgs.zsh;
 
