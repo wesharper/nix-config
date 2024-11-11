@@ -81,6 +81,8 @@
   boot.kernelModules = [
     "kvm-amd"
     "r8169"
+    "r8125"
+    "mt7925"
     "k10temp"
   ];
 
@@ -91,7 +93,6 @@
   ];
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  # boot.extraModulePackages = with config.boot.kernelPackages; [ pkgs.linuxPackages_hardened.r8125 ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
