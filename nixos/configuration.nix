@@ -69,12 +69,12 @@
 
     graphics = {
       enable = true;
-      # extraPackages = with pkgs; [
-      #   rocm-opencl-icd
-      #   rocm-opencl-runtime
-      #   amdvlk
-      # ];
-      # extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+      extraPackages = with pkgs; [
+        mangohud
+        vulkan-tools
+        libdecor
+        gtk3
+      ];
     };
   };
 
@@ -174,7 +174,11 @@
     discord
     fzf
     git
+    glxinfo
+    gtk3
+    gtk4
     kitty
+    libdecor
     lm_sensors
     mangohud
     nixfmt-rfc-style
@@ -183,16 +187,30 @@
     stow
     unzip
     vscode
-    pkgs.linuxKernel.packages.linux_zen.zenpower
+    vulkan-tools
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXrandr
+    xorg.libXinerama
+    xorg.libXi
+    xorg.libXxf86vm
   ];
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "RobotoMono" ]; })
   ];
 
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+  };
+
   programs.steam = {
     enable = true;
+  };
+
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
   };
 
   users.defaultUserShell = pkgs.zsh;
