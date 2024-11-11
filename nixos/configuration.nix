@@ -46,6 +46,60 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+    "thunderbolt"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+  ];
+
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  hardware = {
+    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
+
+    cpu = {
+      amd.updateMicrocode = true;
+    };
+
+    graphics = {
+      enable = true;
+      # extraPackages = with pkgs; [
+      #   rocm-opencl-icd
+      #   rocm-opencl-runtime
+      #   amdvlk
+      # ];
+      # extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+    };
+  };
+
+  boot.kernelModules = [
+    "kvm-amd"
+    "r8125"
+    "k10temp"
+  ];
+
+  # For better CPU performance
+  boot.kernelParams = [
+    "amd_pstate=active" # Better CPU frequency scaling
+    "processor.max_cstate=5" # Recommended for X3D CPUs
+  ];
+
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # boot.extraModulePackages = with config.boot.kernelPackages; [ pkgs.linuxPackages_hardened.r8125 ];
+  boot.extraModulePackages = [
+    (pkgs.linuxPackages.r8125.overrideAttrs (oldAttrs: {
+      meta = oldAttrs.meta // {
+        broken = false;
+      };
+    }))
+  ];
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -76,7 +130,12 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  # Enable game mode
+  # programs.gamemode.enable = true;
+
+  # Better power management
+  # services.thermald.enable = true;
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
@@ -123,13 +182,16 @@
     fzf
     git
     kitty
+    lm_sensors
     nixfmt-rfc-style
+    ryzenadj
     spotify
     starship
     steam
     stow
     unzip
     vscode
+    pkgs.linuxKernel.packages.linux_zen.zenpower
   ];
 
   fonts.packages = with pkgs; [
