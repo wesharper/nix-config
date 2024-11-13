@@ -61,7 +61,7 @@
 
   hardware = {
     enableAllFirmware = true;
-    enableRedistributableFirmware = true;
+    firmware = [ pkgs.linux-firmware ];
 
     cpu = {
       amd.updateMicrocode = true;
@@ -85,33 +85,45 @@
       settings = {
         General = {
           Experimental = true; # Show battery charge of devices
-          Enable = "Source,Sink,Media,Socket"; # Enable A2DP Sink for modern headsets
         };
       };
     };
-
-    # pulseaudio = {
-    #   enable = true;
-    #   package = pkgs.pulseaudioFull; # Support additional BT audio codecs
-    #   extraConfig = "load-module module-switch-on-connect"; # Auto-switch to connected BT device
-    # };
   };
 
   boot.kernelModules = [
-    "kvm-amd"
     "r8169"
-    "r8125"
-    "mt7925"
+    "mt7922e"
+    "btmtk"
+    "btusb"
     "k10temp"
   ];
+
+  security.polkit.enable = true;
+  services.blueman = {
+    enable = true;
+  };
+
+  # D-Bus configuration
+  services.dbus = {
+    enable = true;
+    packages = [ pkgs.blueman ];
+  };
 
   # For better CPU performance
   boot.kernelParams = [
     "amd_pstate=active" # Better CPU frequency scaling
     "processor.max_cstate=5" # Recommended for X3D CPUs
+    "btmtk.uart_enable=0"
+    "btmtk.hci_enable=1"
   ];
+  # Disable USB autosuspend for Bluetooth
+  # Disable autosuspend for all USB devices
+  boot.extraModprobeConfig = ''
+    options btusb enable_autosuspend=n
+    options usbcore autosuspend=-1
+  '';
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -167,6 +179,11 @@
     wireplumber.enable = true;
   };
 
+  users.users.nm-openconnect = {
+    isSystemUser = true;
+    group = "networkmanager";
+  };
+
   users.users.chuffed = {
     isNormalUser = true;
     description = "Weston Harper";
@@ -179,7 +196,10 @@
 
   environment.systemPackages = with pkgs; [
     _1password-gui
+    blueman
+    bluez
     brave
+    dbus
     discord
     fzf
     git
@@ -192,10 +212,13 @@
     lm_sensors
     mangohud
     nixfmt-rfc-style
+    pciutils
+    polkit
     spotify
     starship
     stow
     unzip
+    usbutils
     vscode
     vulkan-tools
     winetricks
