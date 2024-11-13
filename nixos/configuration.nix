@@ -92,9 +92,6 @@
 
   boot.kernelModules = [
     "r8169"
-    "mt7922e"
-    "btmtk"
-    "btusb"
     "k10temp"
   ];
 
