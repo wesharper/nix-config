@@ -5,6 +5,27 @@
   pkgs,
   ...
 }:
+let
+  r8125-source = pkgs.stdenv.mkDerivation {
+    name = "r8125";
+    version = "9.014.01"; # or whatever version you want to use
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/awesometic/realtek-r8125-dkms/archive/refs/tags/9.014.01-1.tar.gz";
+      sha256 = "sha256-slCQRoNlTSuN/SdfsB4Xg2OlRlWGzH7sf9EOuQdXprM=";
+    };
+
+    makeFlags = [
+      "KERNELDIR=${config.boot.kernelPackages.kernel.dev}/lib/modules/${config.boot.kernelPackages.kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=$(out)"
+    ];
+
+    installPhase = ''
+      mkdir -p $out/lib/modules/${config.boot.kernelPackages.kernel.modDirVersion}/kernel/drivers/net/ethernet/realtek
+      cp src/r8125.ko $out/lib/modules/${config.boot.kernelPackages.kernel.modDirVersion}/kernel/drivers/net/ethernet/realtek/
+    '';
+  };
+in
 {
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
@@ -19,7 +40,6 @@
   ];
 
   nixpkgs = {
-    # You can add overlays here
     overlays = [
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
@@ -31,9 +51,7 @@
       #   });
       # })
     ];
-    # Configure your nixpkgs instance
     config = {
-      # Disable if you don't want unfree packages
       allowUnfree = true;
     };
   };
@@ -46,31 +64,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "xhci_pci"
-    "ahci"
-    "thunderbolt"
-    "usb_storage"
-    "usbhid"
-    "sd_mod"
-  ];
-
-  boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   hardware = {
     enableAllFirmware = true;
-    firmware = [ pkgs.linux-firmware ];
-
-    cpu = {
-      amd.updateMicrocode = true;
-    };
 
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        mangohud
         vulkan-tools
         libdecor
         gtk3
@@ -91,8 +92,12 @@
   };
 
   boot.kernelModules = [
-    "r8169"
-    "k10temp"
+    "r8125"
+    # "k10temp"
+  ];
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    r8125-source
   ];
 
   security.polkit.enable = true;
@@ -100,25 +105,17 @@
     enable = true;
   };
 
-  # D-Bus configuration
-  services.dbus = {
-    enable = true;
-    packages = [ pkgs.blueman ];
-  };
+  # # D-Bus configuration
+  # services.dbus = {
+  #   enable = true;
+  #   packages = [ pkgs.blueman ];
+  # };
 
   # For better CPU performance
-  boot.kernelParams = [
-    "amd_pstate=active" # Better CPU frequency scaling
-    "processor.max_cstate=5" # Recommended for X3D CPUs
-    "btmtk.uart_enable=0"
-    "btmtk.hci_enable=1"
-  ];
-  # Disable USB autosuspend for Bluetooth
-  # Disable autosuspend for all USB devices
-  boot.extraModprobeConfig = ''
-    options btusb enable_autosuspend=n
-    options usbcore autosuspend=-1
-  '';
+  # boot.kernelParams = [
+  #   "amd_pstate=active" # Better CPU frequency scaling
+  #   "processor.max_cstate=5" # Recommended for X3D CPUs
+  # ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -185,7 +182,6 @@
     isNormalUser = true;
     description = "Weston Harper";
     extraGroups = [
-      "bluetooth"
       "networkmanager"
       "wheel"
     ];
@@ -207,7 +203,6 @@
     legendary-gl
     libdecor
     lm_sensors
-    mangohud
     nixfmt-rfc-style
     pciutils
     polkit
