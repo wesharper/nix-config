@@ -93,23 +93,11 @@ in
 
   boot.kernelModules = [
     "r8125"
-    # "k10temp"
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     r8125-source
   ];
-
-  security.polkit.enable = true;
-  services.blueman = {
-    enable = true;
-  };
-
-  # # D-Bus configuration
-  # services.dbus = {
-  #   enable = true;
-  #   packages = [ pkgs.blueman ];
-  # };
 
   # For better CPU performance
   # boot.kernelParams = [
@@ -189,7 +177,7 @@ in
 
   environment.systemPackages = with pkgs; [
     _1password-gui
-    blueman
+    bluemail
     bluez
     brave
     dbus
@@ -199,13 +187,13 @@ in
     glxinfo
     gtk3
     gtk4
+    heroic
     kitty
-    legendary-gl
     libdecor
     lm_sensors
     nixfmt-rfc-style
     pciutils
-    polkit
+    slack
     spotify
     starship
     stow
@@ -221,6 +209,7 @@ in
     xorg.libXinerama
     xorg.libXi
     xorg.libXxf86vm
+    zed-editor
   ];
 
   fonts.packages = with pkgs; [
