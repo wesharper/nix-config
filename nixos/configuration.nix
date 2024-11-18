@@ -93,6 +93,7 @@ in
 
   boot.kernelModules = [
     "r8125"
+    "xpadneo"
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
@@ -182,8 +183,10 @@ in
     brave
     dbus
     discord
+    fnm
     fzf
     git
+    git-credential-manager
     glxinfo
     gtk3
     gtk4
@@ -191,6 +194,7 @@ in
     kitty
     libdecor
     lm_sensors
+    nixd
     nixfmt-rfc-style
     pciutils
     slack
