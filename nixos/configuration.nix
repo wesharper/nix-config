@@ -171,6 +171,7 @@ in
     isNormalUser = true;
     description = "Weston Harper";
     extraGroups = [
+      "bluetooth"
       "networkmanager"
       "wheel"
     ];
@@ -179,24 +180,18 @@ in
   environment.systemPackages = with pkgs; [
     _1password-gui
     bluemail
-    bluez
     brave
-    dbus
     discord
     fnm
     fzf
     git
     git-credential-manager
-    glxinfo
-    gtk3
-    gtk4
     heroic
     kitty
-    libdecor
-    lm_sensors
     nixd
     nixfmt-rfc-style
     pciutils
+    psmisc
     slack
     spotify
     starship
@@ -207,12 +202,6 @@ in
     vulkan-tools
     winetricks
     wineWowPackages.stable
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXrandr
-    xorg.libXinerama
-    xorg.libXi
-    xorg.libXxf86vm
     zed-editor
   ];
 
