@@ -186,6 +186,7 @@ in
     git-credential-manager
     heroic
     kitty
+    mailspring
     nixd
     nixfmt-rfc-style
     pciutils
