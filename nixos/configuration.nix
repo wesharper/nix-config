@@ -1,6 +1,4 @@
 {
-  inputs,
-  lib,
   config,
   pkgs,
   ...
@@ -8,7 +6,7 @@
 let
   r8125-source = pkgs.stdenv.mkDerivation {
     name = "r8125";
-    version = "9.014.01"; # or whatever version you want to use
+    version = "9.014.01";
 
     src = pkgs.fetchurl {
       url = "https://github.com/awesometic/realtek-r8125-dkms/archive/refs/tags/9.014.01-1.tar.gz";
@@ -61,7 +59,10 @@ in
     "flakes"
   ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 42;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   services.xserver.videoDrivers = [ "amdgpu" ];
@@ -82,37 +83,37 @@ in
     bluetooth = {
       enable = true;
       powerOnBoot = true;
-
       settings = {
         General = {
-          Experimental = true; # Show battery charge of devices
+          Experimental = true;
+        };
+
+        Policy = {
+          AutoEnable = true;
         };
       };
     };
   };
 
+  systemd.services.bluetooth = {
+    enable = true;
+    serviceConfig = {
+      ConfigurationDirectoryMode = "0755";
+    };
+  };
+
   boot.kernelModules = [
     "r8125"
-    "xpadneo"
+    "xone" # xbox controller driver
   ];
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     r8125-source
   ];
 
-  # For better CPU performance
-  # boot.kernelParams = [
-  #   "amd_pstate=active" # Better CPU frequency scaling
-  #   "processor.max_cstate=5" # Recommended for X3D CPUs
-  # ];
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos"; # Define your hostname.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "nixos";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -179,10 +180,8 @@ in
 
   environment.systemPackages = with pkgs; [
     _1password-gui
-    bluemail
     brave
     discord
-    fnm
     fzf
     git
     git-credential-manager
@@ -191,7 +190,6 @@ in
     nixd
     nixfmt-rfc-style
     pciutils
-    psmisc
     slack
     spotify
     starship
@@ -211,6 +209,9 @@ in
 
   programs.zsh = {
     enable = true;
+    shellAliases = {
+      zed = "zeditor";
+    };
   };
 
   programs.steam = {
