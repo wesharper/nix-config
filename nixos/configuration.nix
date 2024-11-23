@@ -172,7 +172,6 @@ in
     isNormalUser = true;
     description = "Weston Harper";
     extraGroups = [
-      "bluetooth"
       "networkmanager"
       "wheel"
     ];
