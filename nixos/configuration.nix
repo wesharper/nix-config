@@ -63,6 +63,7 @@ in
     enable = true;
     configurationLimit = 42;
   };
+
   boot.loader.efi.canTouchEfiVariables = true;
 
   services.xserver.videoDrivers = [ "amdgpu" ];
@@ -82,36 +83,25 @@ in
 
     bluetooth = {
       enable = true;
-      powerOnBoot = true;
       settings = {
         General = {
           Experimental = true;
-        };
-
-        Policy = {
-          AutoEnable = true;
         };
       };
     };
   };
 
   systemd.services.bluetooth = {
-    enable = true;
     serviceConfig = {
       ConfigurationDirectoryMode = "0755";
     };
   };
 
-  boot.kernelModules = [
-    "r8125"
-    "xone" # xbox controller driver
-  ];
-
   boot.extraModulePackages = with config.boot.kernelPackages; [
     r8125-source
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_testing;
 
   networking.hostName = "nixos";
 
@@ -143,14 +133,35 @@ in
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  environment.gnome.excludePackages = with pkgs; [
+    orca
+    evince
+    geary
+    gnome-user-docs
+    epiphany
+    gnome-bluetooth
+    gnome-text-editor
+    gnome-calculator
+    gnome-calendar
+    gnome-characters
+    gnome-console
+    gnome-contacts
+    gnome-font-viewer
+    gnome-maps
+    gnome-music
+    gnome-weather
+    gnome-connections
+    simple-scan
+    snapshot
+    totem
+    yelp
+  ];
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   # Enable sound with pipewire.
   security.rtkit.enable = true;
@@ -217,11 +228,6 @@ in
   programs.steam = {
     enable = true;
   };
-
-  # programs.hyprland = {
-  #   enable = true;
-  #   xwayland.enable = true;
-  # };
 
   users.defaultUserShell = pkgs.zsh;
 
