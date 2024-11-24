@@ -115,6 +115,17 @@ in
     '';
   };
 
+  services.flatpak = {
+    enable = true;
+
+    packages = [ ];
+
+    update.auto = {
+      enable = true;
+      onCalendar = "daily";
+    };
+  };
+
   networking.hostName = "nixos";
 
   # Enable networking
@@ -224,6 +235,7 @@ in
     winetricks
     wineWowPackages.stable
     zed-editor
+    zoom-us
   ];
 
   fonts.packages = with pkgs; [
