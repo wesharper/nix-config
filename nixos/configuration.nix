@@ -214,6 +214,7 @@ in
   environment.systemPackages = with pkgs; [
     _1password-gui
     brave
+    direnv
     discord
     fzf
     git
