@@ -208,20 +208,26 @@ in
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
   };
+
+  virtualisation.docker.enable = true;
 
   environment.systemPackages = with pkgs; [
     _1password-gui
     brave
     direnv
     discord
+    docker
     fzf
+    gamescope
     git
     git-credential-manager
     heroic
     kitty
     mailspring
+    mangohud
     nixd
     nixfmt-rfc-style
     pciutils
