@@ -157,16 +157,19 @@ in
   services.xserver.desktopManager.gnome.enable = true;
 
   environment.gnome.excludePackages = with pkgs; [
-    orca
+    atomix
+    epiphany
     evince
     geary
+    iagno
+    hitori
     gnome-user-docs
-    epiphany
     gnome-bluetooth
     gnome-text-editor
     gnome-calculator
     gnome-calendar
     gnome-characters
+    gnome-clocks
     gnome-console
     gnome-contacts
     gnome-font-viewer
@@ -174,10 +177,14 @@ in
     gnome-music
     gnome-weather
     gnome-connections
+    gnome-tour
+    orca
     simple-scan
     snapshot
+    tali
     totem
     yelp
+    xterm
   ];
 
   # Configure keymap in X11
@@ -246,7 +253,7 @@ in
   ];
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "RobotoMono" ]; })
+    nerd-fonts.roboto-mono
   ];
 
   programs.zsh = {
