@@ -3,27 +3,6 @@
   pkgs,
   ...
 }:
-let
-  r8125-source = pkgs.stdenv.mkDerivation {
-    name = "r8125";
-    version = "9.014.01";
-
-    src = pkgs.fetchurl {
-      url = "https://github.com/awesometic/realtek-r8125-dkms/archive/refs/tags/9.014.01-1.tar.gz";
-      sha256 = "sha256-slCQRoNlTSuN/SdfsB4Xg2OlRlWGzH7sf9EOuQdXprM=";
-    };
-
-    makeFlags = [
-      "KERNELDIR=${config.boot.kernelPackages.kernel.dev}/lib/modules/${config.boot.kernelPackages.kernel.modDirVersion}/build"
-      "INSTALL_MOD_PATH=$(out)"
-    ];
-
-    installPhase = ''
-      mkdir -p $out/lib/modules/${config.boot.kernelPackages.kernel.modDirVersion}/kernel/drivers/net/ethernet/realtek
-      cp src/r8125.ko $out/lib/modules/${config.boot.kernelPackages.kernel.modDirVersion}/kernel/drivers/net/ethernet/realtek/
-    '';
-  };
-in
 {
   imports = [
     # If you want to use modules from other flakes (such as nixos-hardware):
@@ -91,16 +70,6 @@ in
     };
   };
 
-  systemd.services.bluetooth = {
-    serviceConfig = {
-      ConfigurationDirectoryMode = "0755";
-    };
-  };
-
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    r8125-source
-  ];
-
   boot.kernelPackages = pkgs.linuxPackages_testing;
 
   services.udev = {
@@ -113,17 +82,6 @@ in
       # Keymapp / Wally Flashing rules for the Moonlander and Planck EZ
       SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666", SYMLINK+="stm32_dfu"
     '';
-  };
-
-  services.flatpak = {
-    enable = true;
-
-    packages = [ ];
-
-    update.auto = {
-      enable = true;
-      onCalendar = "daily";
-    };
   };
 
   networking.hostName = "nixos";
