@@ -21,10 +21,11 @@
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
-      # Or define it inline, for example:
       # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
+      #   gitbutler = prev.gitbutler.overrideAttrs (oldAttrs: {
+      #     meta = oldAttrs.meta // {
+      #       broken = false;
+      #     };
       #   });
       # })
     ];
@@ -189,6 +190,7 @@
     gamescope
     git
     git-credential-manager
+    # gitbutler
     heroic
     kitty
     mailspring
