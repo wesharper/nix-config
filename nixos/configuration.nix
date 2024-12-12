@@ -193,6 +193,7 @@
     # gitbutler
     heroic
     kitty
+    lutris
     mailspring
     mangohud
     nixd
