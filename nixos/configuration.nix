@@ -182,6 +182,7 @@
 
   environment.systemPackages = with pkgs; [
     _1password-gui
+    bottles
     brave
     direnv
     discord
@@ -226,13 +227,7 @@
 
   programs.steam = {
     enable = true;
-    package = pkgs.steam.override {
-      extraPkgs =
-        pkgs: with pkgs; [
-          gamescope
-          mangohud
-        ];
-    };
+    gamescopeSession.enable = true;
   };
 
   programs.gamemode = {
