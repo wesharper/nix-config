@@ -22,16 +22,6 @@
       # If you want to use overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
-      # (final: prev: {
-      #   gitbutler = prev.gitbutler.overrideAttrs (oldAttrs: {
-      #     meta = oldAttrs.meta // {
-      #       broken = false;
-      #     };
-      #   });
-      # })
-      (final: prev: {
-        ghostty = ghostty.packages.${prev.system}.default;
-      })
     ];
     config = {
       allowUnfree = true;
@@ -202,10 +192,10 @@
     docker
     fzf
     gamescope
-    ghostty
+    (ghostty.packages.${system}.default)
     git
     git-credential-manager
-    # gitbutler
+    gitbutler
     # heroic
     # lxappearance # i3wm appearance manager
     # lutris
