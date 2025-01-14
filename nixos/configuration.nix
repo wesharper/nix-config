@@ -43,6 +43,12 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   hardware = {
+    # razer peripheral setup
+    # openrazer = {
+    #   enable = true;
+    #   users = [ "chuffed" ];
+    # };
+
     enableAllFirmware = true;
 
     graphics = {
@@ -195,14 +201,14 @@
     (ghostty.packages.${system}.default)
     git
     git-credential-manager
-    gitbutler
-    # heroic
+    legendary-gl
     # lxappearance # i3wm appearance manager
-    # lutris
     mailspring
     mangohud
     nixd
     nixfmt-rfc-style
+    # openrazer-daemon
+    polychromatic
     slack
     spotify
     starship
@@ -213,6 +219,7 @@
     winetricks
     wineWowPackages.stable
     zed-editor
+    zoom-us
   ];
 
   fonts.packages = with pkgs; [
