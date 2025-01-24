@@ -207,7 +207,7 @@
     mangohud
     nixd
     nixfmt-rfc-style
-    # openrazer-daemon
+    openrazer-daemon
     polychromatic
     slack
     spotify
