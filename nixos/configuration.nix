@@ -44,10 +44,10 @@
 
   hardware = {
     # razer peripheral setup
-    # openrazer = {
-    #   enable = true;
-    #   users = [ "chuffed" ];
-    # };
+    openrazer = {
+      enable = true;
+      users = [ "chuffed" ];
+    };
 
     enableAllFirmware = true;
 
