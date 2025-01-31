@@ -43,12 +43,6 @@
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   hardware = {
-    # razer peripheral setup
-    openrazer = {
-      enable = true;
-      users = [ "chuffed" ];
-    };
-
     enableAllFirmware = true;
 
     graphics = {
@@ -207,8 +201,6 @@
     mangohud
     nixd
     nixfmt-rfc-style
-    openrazer-daemon
-    polychromatic
     slack
     spotify
     starship
