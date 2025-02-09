@@ -190,7 +190,7 @@
     (ghostty.packages.${system}.default)
     git
     git-credential-manager
-    legendary-gl
+    heroic
     # lxappearance # i3wm appearance manager
     mailspring
     mangohud
