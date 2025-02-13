@@ -59,7 +59,7 @@
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.udev = {
     enable = true;
