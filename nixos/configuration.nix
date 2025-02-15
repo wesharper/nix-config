@@ -19,9 +19,15 @@
 
   nixpkgs = {
     overlays = [
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
+      (self: super: {
+        linuxPackages_latest = super.linuxPackages_latest.extend (
+          lpself: lpsuper: {
+            xpad = lpsuper.xpad.overrideAttrs (oldAttrs: {
+              patches = (oldAttrs.patches or [ ]) ++ [ ../patches/xpad.patch ];
+            });
+          }
+        );
+      })
     ];
     config = {
       allowUnfree = true;
