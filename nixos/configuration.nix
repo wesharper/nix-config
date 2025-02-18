@@ -19,15 +19,15 @@
 
   nixpkgs = {
     overlays = [
-      (self: super: {
-        linuxPackages_latest = super.linuxPackages_latest.extend (
-          lpself: lpsuper: {
-            xpad = lpsuper.xpad.overrideAttrs (oldAttrs: {
-              patches = (oldAttrs.patches or [ ]) ++ [ ../patches/xpad.patch ];
-            });
-          }
-        );
-      })
+      # (self: super: {
+      #   linuxPackages_latest = super.linuxPackages_latest.extend (
+      #     lpself: lpsuper: {
+      #       xpad = lpsuper.xpad.overrideAttrs (oldAttrs: {
+      #         patches = (oldAttrs.patches or [ ]) ++ [ ../patches/xpad.patch ];
+      #       });
+      #     }
+      #   );
+      # })
     ];
     config = {
       allowUnfree = true;
@@ -76,6 +76,9 @@
 
       # Keymapp / Wally Flashing rules for the Moonlander and Planck EZ
       SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666", SYMLINK+="stm32_dfu"
+
+      # Xbox Elite 2 Over Bluetooth
+      KERNEL=="hidraw*", KERNELS="*045E:0B22*", MODE="0660", TAG +="uaccess"
     '';
   };
 
