@@ -1,0 +1,12 @@
+diff --git a/drivers/input/joystick/xone/transport/dongle.c b/drivers/input/joystick/xone/transport/dongle.c
+index aa58ac2..376ebf4 100644
+--- a/drivers/input/joystick/xone/transport/dongle.c
++++ b/drivers/input/joystick/xone/transport/dongle.c
+@@ -1019,6 +1019,7 @@ static const struct usb_device_id xone_dongle_id_table[] = {
+ 	{ USB_DEVICE(0x045e, 0x02fe) }, /* new dongle */
+ 	{ USB_DEVICE(0x045e, 0x02f9) }, /* built-in dongle (ASUS, Lenovo) */
+ 	{ USB_DEVICE(0x045e, 0x091e) }, /* built-in dongle (Surface Book 2) */
++	{ USB_DEVICE(0x1532, 0x0a3f) }, /* xbox compatible dongle (Razer Wolverine V3 Pro) */
+ 	{ },
+ };
+

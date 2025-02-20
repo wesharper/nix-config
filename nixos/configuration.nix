@@ -48,8 +48,8 @@
 
   boot.kernelPatches = [
     {
-      name = "xpad";
-      patch = ../patches/xpad.patch;
+      name = "xone";
+      patch = ../patches/xone.patch;
     }
   ];
 
@@ -57,6 +57,9 @@
 
   hardware = {
     enableAllFirmware = true;
+
+    # additional drivers for xbox controllers
+    xone.enable = true;
 
     graphics = {
       enable = true;
