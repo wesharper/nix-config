@@ -46,6 +46,13 @@
 
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.kernelPatches = [
+    {
+      name = "xpad";
+      patch = ../patches/xpad.patch;
+    }
+  ];
+
   services.xserver.videoDrivers = [ "amdgpu" ];
 
   hardware = {
@@ -78,7 +85,7 @@
       SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666", SYMLINK+="stm32_dfu"
 
       # Xbox Elite 2 Over Bluetooth
-      KERNEL=="hidraw*", KERNELS="*045E:0B22*", MODE="0660", TAG +="uaccess"
+      KERNEL=="hidraw*", KERNELS="*045e:0b22*", MODE="0660", TAG +="uaccess"
     '';
   };
 
