@@ -51,6 +51,10 @@
       enable = true;
       powerOnBoot = true;
     };
+
+    amdgpu = {
+      amdvlk.enable = true;
+    };
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
