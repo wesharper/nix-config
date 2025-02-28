@@ -51,8 +51,6 @@
       enable = true;
       powerOnBoot = true;
     };
-
-    pulseaudio.enable = false; # prefer pipewire
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -209,7 +207,7 @@
   ];
 
   fonts.packages = with pkgs; [
-    nerdfonts
+    nerd-fonts.roboto-mono
     google-fonts
   ];
 
