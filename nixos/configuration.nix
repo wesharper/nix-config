@@ -49,12 +49,10 @@
 
     bluetooth = {
       enable = true;
-      settings = {
-        General = {
-          Experimental = true;
-        };
-      };
+      powerOnBoot = true;
     };
+
+    pulseaudio.enable = false; # prefer pipewire
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -166,21 +164,6 @@
     wireplumber.enable = true;
   };
 
-  services.music-assistant = {
-    enable = true;
-
-    providers = [
-      "airplay"
-      "apple_music"
-      "builtin"
-      "filesystem_local"
-      "filesystem_smb"
-      "jellyfin"
-      "soundcloud"
-      "spotify"
-    ];
-  };
-
   users.users.nm-openconnect = {
     isSystemUser = true;
     group = "networkmanager";
@@ -202,6 +185,7 @@
     _1password-gui
     bottles
     brave
+    cider
     direnv
     discord
     docker
