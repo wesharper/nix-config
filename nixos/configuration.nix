@@ -100,6 +100,10 @@
   services.xserver = {
     enable = true;
 
+    excludePackages = with pkgs; [
+      xterm
+    ];
+
     desktopManager = {
       gnome.enable = true;
     };
@@ -148,7 +152,6 @@
     snapshot
     tali
     totem
-    xterm
     yelp
   ];
 
@@ -163,7 +166,20 @@
     wireplumber.enable = true;
   };
 
-  services.music-assistant.enable = true;
+  services.music-assistant = {
+    enable = true;
+
+    providers = [
+      "airplay"
+      "apple_music"
+      "builtin"
+      "filesystem_local"
+      "filesystem_smb"
+      "jellyfin"
+      "soundcloud"
+      "spotify"
+    ];
+  };
 
   users.users.nm-openconnect = {
     isSystemUser = true;
