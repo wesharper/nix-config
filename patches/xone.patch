@@ -1,7 +1,7 @@
-diff --git a/drivers/input/joystick/xone/transport/dongle.c b/drivers/input/joystick/xone/transport/dongle.c
+diff --git a/transport/dongle.c b/transport/dongle.c
 index aa58ac2..376ebf4 100644
---- a/drivers/input/joystick/xone/transport/dongle.c
-+++ b/drivers/input/joystick/xone/transport/dongle.c
+--- a/transport/dongle.c
++++ b/transport/dongle.c
 @@ -1019,6 +1019,7 @@ static const struct usb_device_id xone_dongle_id_table[] = {
  	{ USB_DEVICE(0x045e, 0x02fe) }, /* new dongle */
  	{ USB_DEVICE(0x045e, 0x02f9) }, /* built-in dongle (ASUS, Lenovo) */

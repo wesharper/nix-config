@@ -18,17 +18,6 @@
   ];
 
   nixpkgs = {
-    overlays = [
-      # (self: super: {
-      #   linuxPackages_latest = super.linuxPackages_latest.extend (
-      #     lpself: lpsuper: {
-      #       xpad = lpsuper.xpad.overrideAttrs (oldAttrs: {
-      #         patches = (oldAttrs.patches or [ ]) ++ [ ../patches/xpad.patch ];
-      #       });
-      #     }
-      #   );
-      # })
-    ];
     config = {
       allowUnfree = true;
     };
@@ -45,13 +34,6 @@
   };
 
   boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.kernelPatches = [
-    {
-      name = "xone";
-      patch = ../patches/xone.patch;
-    }
-  ];
 
   services.xserver.videoDrivers = [ "amdgpu" ];
 
@@ -119,18 +101,12 @@
     enable = true;
 
     desktopManager = {
-      # xterm.enable = false;
       gnome.enable = true;
     };
 
     displayManager = {
       gdm.enable = true;
-      # defaultSession = "none+i3";
     };
-
-    # windowManager.i3 = {
-    #   enable = true;
-    # };
 
     # Configure keymap in X11
     xkb = {
@@ -141,33 +117,39 @@
 
   environment.gnome.excludePackages = with pkgs; [
     atomix
+    baobab
     epiphany
     evince
     geary
-    iagno
-    hitori
-    gnome-user-docs
     gnome-bluetooth
-    gnome-text-editor
     gnome-calculator
     gnome-calendar
     gnome-characters
     gnome-clocks
+    gnome-connections
     gnome-console
     gnome-contacts
+    gnome-disk-utility
     gnome-font-viewer
+    gnome-logs
     gnome-maps
     gnome-music
-    gnome-weather
-    gnome-connections
+    gnome-software
+    gnome-text-editor
     gnome-tour
+    gnome-user-docs
+    gnome-weather
+    hitori
+    iagno
+    loupe
     orca
+    seahorse
     simple-scan
     snapshot
     tali
     totem
-    yelp
     xterm
+    yelp
   ];
 
   # Enable sound with pipewire.
@@ -180,6 +162,8 @@
     jack.enable = true;
     wireplumber.enable = true;
   };
+
+  services.music-assistant.enable = true;
 
   users.users.nm-openconnect = {
     isSystemUser = true;
@@ -200,43 +184,37 @@
 
   environment.systemPackages = with pkgs; [
     _1password-gui
+    bottles
     brave
     direnv
     discord
     docker
     fzf
-    gamescope
     (ghostty.packages.${system}.default)
     git
     git-credential-manager
     heroic
-    # lxappearance # i3wm appearance manager
-    mailspring
+    lutris
     mangohud
+    neovim
     nixd
     nixfmt-rfc-style
+    protonup-qt
     slack
     spotify
     starship
     stow
-    unzip
     vscode
-    vulkan-tools
-    winetricks
-    wineWowPackages.stable
-    zed-editor
     zoom-us
   ];
 
   fonts.packages = with pkgs; [
-    nerd-fonts.roboto-mono
+    nerdfonts
+    google-fonts
   ];
 
   programs.zsh = {
     enable = true;
-    shellAliases = {
-      zed = "zeditor";
-    };
   };
 
   programs.steam = {
@@ -251,5 +229,5 @@
   users.defaultUserShell = pkgs.zsh;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 }
