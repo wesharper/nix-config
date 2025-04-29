@@ -188,6 +188,8 @@
     bottles
     brave
     cider
+    clang # nvim
+    clang-tools # nvim
     direnv
     discord
     docker
@@ -195,7 +197,9 @@
     (ghostty.packages.${system}.default)
     git
     git-credential-manager
+    gnumake # nvim
     heroic
+    lazygit
     lutris
     mangohud
     neovim
@@ -207,6 +211,7 @@
     starship
     stow
     vscode
+    wl-clipboard
     zoom-us
   ];
 
@@ -217,6 +222,20 @@
 
   programs.zsh = {
     enable = true;
+    autosuggestions = {
+      enable = true;
+    };
+    syntaxHighlighting = {
+      enable = true;
+    };
+  };
+
+  programs.tmux = {
+    enable = true;
+    plugins = with pkgs.tmuxPlugins; [
+      sensible
+      resurrect
+    ];
   };
 
   programs.steam = {
