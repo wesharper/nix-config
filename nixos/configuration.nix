@@ -197,6 +197,7 @@
     (ghostty.packages.${system}.default)
     git
     git-credential-manager
+    gnomeExtensions.paperwm
     gnumake # nvim
     heroic
     lazygit
