@@ -203,6 +203,7 @@
     lazygit
     lutris
     mangohud
+    ncspot
     neovim
     nixd
     nixfmt-rfc-style
