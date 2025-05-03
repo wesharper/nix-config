@@ -20,7 +20,7 @@
           specialArgs = { inherit ghostty; };
 
           modules = [
-            ./nixos/configuration.nix
+            ./config/configuration.nix
           ];
         };
       };

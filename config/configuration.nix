@@ -10,10 +10,8 @@
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
 
-    # You can also split up your configuration and import pieces of it here:
-    # ./users.nix
-
-    # Import your generated (nixos-generate-config) hardware configuration
+    ./gnome.nix
+    # generated hardware config
     ./hardware-configuration.nix
   ];
 
@@ -183,39 +181,46 @@
 
   virtualisation.docker.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    _1password-gui
-    bottles
-    brave
-    cider
-    clang # nvim
-    clang-tools # nvim
-    direnv
-    discord
-    docker
-    fzf
-    (ghostty.packages.${system}.default)
-    git
-    git-credential-manager
-    gnomeExtensions.paperwm
-    gnumake # nvim
-    heroic
-    lazygit
-    lutris
-    mangohud
-    ncspot
-    neovim
-    nixd
-    nixfmt-rfc-style
-    protonup-qt
-    slack
-    spotify
-    starship
-    stow
-    vscode
-    wl-clipboard
-    zoom-us
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      _1password-gui
+      bottles
+      brave
+      cider
+      clang # nvim
+      clang-tools # nvim
+      direnv
+      discord
+      docker
+      fzf
+      (ghostty.packages.${system}.default)
+      git
+      git-credential-manager
+      gnumake # nvim
+      heroic
+      lazygit
+      lutris
+      magnetic-catppuccin-gtk
+      mangohud
+      ncspot
+      neovim
+      nixd
+      nixfmt-rfc-style
+      protonup-qt
+      slack
+      spotify
+      starship
+      stow
+      vscode
+      wl-clipboard
+      zoom-us
+    ]
+    ++ (with pkgs.gnomeExtensions; [
+      pop-shell
+      blur-my-shell
+      nordvpn-quick-toggle
+    ]);
 
   fonts.packages = with pkgs; [
     nerd-fonts.roboto-mono
