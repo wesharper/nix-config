@@ -3,7 +3,6 @@ let
   extensions = with pkgs.gnomeExtensions; [
     pop-shell
     blur-my-shell
-    nordvpn-quick-toggle
   ];
 
   emptyStrArray = lib.gvariant.mkEmptyArray lib.gvariant.type.string;
