@@ -203,13 +203,13 @@
       lutris
       magnetic-catppuccin-gtk
       mangohud
-      ncspot
       neovim
       nixd
       nixfmt-rfc-style
       protonup-qt
       slack
       spotify
+      spotify-player
       starship
       stow
       vscode
@@ -219,7 +219,6 @@
     ++ (with pkgs.gnomeExtensions; [
       pop-shell
       blur-my-shell
-      nordvpn-quick-toggle
     ]);
 
   fonts.packages = with pkgs; [
