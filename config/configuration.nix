@@ -10,7 +10,6 @@
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
 
-    ./gnome.nix
     # generated hardware config
     ./hardware-configuration.nix
   ];
